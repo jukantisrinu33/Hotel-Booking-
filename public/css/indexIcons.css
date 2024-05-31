@@ -1,0 +1,60 @@
+#filters  
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.filter
+{
+    text-align: center;
+    margin-right: 2rem;
+    opacity: 0.6;
+    font-size: 0.8rem;
+}
+
+.filter:hover
+{
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+.tax-info
+{
+    display: none;
+}
+
+.form-switch
+{
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin-top: 0.8rem;
+    height: 3rem;
+    padding:1rem;
+    width: 150px;
+    
+}
+
+
+.btn-search
+{
+    background-color: brown;
+    color:white;
+    border-radius: 25px;
+    
+}
+.fa-magnifying-glass
+{
+    display: inline;
+}
+
+.search-tool
+{
+    border-radius: 25px;
+    width: 20rem;
+}
+@media screen and (max-width: 500px) {
+    #filters {
+      display:none;
+    
+    }
+  }

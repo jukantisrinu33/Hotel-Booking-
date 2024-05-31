@@ -1,0 +1,71 @@
+<%layout('/layouts/boilerplate') %>
+<body>
+    <div class="row ">
+        <form action="/listings/<%=idData._id %>/edit?_method=put" class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
+            <br>
+        <div class=" col-8 offset-1 ">
+            <h3>Edit the Listing</h3>
+                <br>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title </label>
+                    <input type="text" name="title" class="form-control" required value="<%= idData.title %>" >
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a Valid Title.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="description"  cols="30" rows="10" class="form-control" required><%= idData.description %></textarea>
+                    <div class="valid-feedback">
+                        Great Description!.
+                    </div>
+                    <div class="invalid-feedback">
+                        Please Enter a Valid Description.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <img src="<%=originalListingImage  %>" alt="your Image" >
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image Link</label>
+                    <input type="file" name="image" class="form-control" value="<%= idData.image%>">
+                </div>
+                <div class="row row-cols-lg-2 row-cols-md-2 ">
+                    <div class="mb-3 ">
+                        <label for="price" class="form-label">Price </label>
+                        <input name="price" required type="number" value="<%= idData.price %>" required class="form-control" >
+                        <div class="invalid-feedback">
+                            Please Enter Valid Price.
+                        </div>
+                        <div class="valid-feedback">
+                            Decent pice
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country </label>
+                        <input type="text" name="country" class="form-control" value="<%= idData.country %>"required >
+                        <div class="invalid-feedback">
+                            Please Enter a Valid country.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location </label>
+                    <input type="text" name="location" class="form-control" value="<%= idData.location %>" required>
+                    <div class="invalid-feedback">
+                        Please Enter a Valid Location.
+                    </div>
+                </div>
+            
+            
+            </div>
+            <button class="btn-md btn btn-outline-dark offset-1">Submit</button>
+            <br><br><br>
+            </form>
+        </div>
+
+</form>
+</body>

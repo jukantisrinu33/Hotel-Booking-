@@ -1,0 +1,137 @@
+<%layout('/layouts/boilerplate') %>
+<body>
+    <script>
+        let mapToken="<%=process.env.MAP_TOKEN%>";
+        let cordinates=<%-JSON.stringify(idData.geometry.cordinates)%>;
+    
+    </script>
+
+
+
+<!-- listing display section -->
+<h3 class="text-center"><b><%=idData.title %></b></h3>
+<div class="row row-col-1">
+
+    <div class="col-sm-4 col-xs-auto col-md-4 col-lg-4" style="height: 0.5vh;"></div>
+    <div class="card col-md-4 col-xs-auto" >
+        <img src="<%= idData.image.url %>" class="card-img-top show-card" alt="Image">
+        <div class="card-body">
+          <p class="card-text">
+            <b>Owned by "<%= (idData.owner.username).toUpperCase() %>"</b>
+            <ul>
+                <li><%=idData.description%></li>
+                <li>&#x20b9; <%=idData.price.toLocaleString("en-IN") %> / night</li>
+                <li><%=idData.location%></li>
+                <li><%=idData.country%></li>
+            </ul>
+          </p>
+        </div>
+      </div>
+    <div class="col-sm-4 col-xs-auto col-md-4 col-lg-4" style="height: 0.5vh;"></div>
+      <% if(currUser && currUser._id.equals(idData.owner._id)){  %>
+        <div class="row">
+            <div class="col text-end">
+                <form action="/listings/<%=idData._id%>/edit" method="get">
+                    <button class="btn-md btn btn-outline-dark">Edit</button>
+                </form>
+            </div>
+            <div class="col">
+                <form action="/listings/<%=idData._id%>/delete?_method=delete" method="post">
+                    <button id="delete" class="btn-md btn btn-outline-dark">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
+
+    <!-- listing display section -->
+    <br>
+    <br>
+    <br>
+    <!-- review display section  -->
+    <% if(idData.review.length){  %>
+    <div class="row mb-5 mt-5">
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+        <div class="col">
+            <h4>Reviews</h4>
+            <% for(let i=0;i<idData.review.length;i++){  %>
+            <div class="card review-card">
+                <div class="card-body">
+                    <div class="card-title"><b><%= (idData.review[i].author.username).toUpperCase() %></b></div>
+                    <div class="card-text"><p class="starability-result" data-rating="<%= idData.review[i].rating%>" style="width: 5rem;"></p></div>
+                    <div class="card-text"><%= idData.review[i].comment%></div>
+                    <%if(currUser && idData.review[i].author._id.equals(currUser._id)){  %>
+                    <form action="/listings/<%= idData._id %>/reviews/<%= idData.review[i]._id %>?_method=DELETE" class="mt-3" method="post">
+                        <button class="btn btn-sm btn-dark">Delete</button>
+                    </form>
+                    <% } %>
+
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+    </div>
+    <% } %>
+    <!-- review display section  -->
+    <br>
+    <br>
+    <br>
+
+    <!-- review form Section -->
+    <% if(currUser) {  %>
+    <div class="row mb-3">
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+        <div class="col">
+            <form action="/listings/<%= idData._id%>/reviews"  method="post" class="needs-validation" novalidate>
+                <h4 class="mb-3 ">Leave a Review</h4>
+                <fieldset class="starability-checkmark form-range">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="3" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+                <div>
+                    <label for="comments" class="form-label mt-3">comments</label>
+                    <textarea id="comments" class="form-control" rows="4" name="comment" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                         Enter a Valid comment.
+                    </div>
+                </div>
+                <button class="btn-md btn btn-outline-dark mt-3">sumbit</button>
+        </div>
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+        </form>
+    </div>
+    <% } %>
+    <!-- review form Section -->
+    <div class="row mb-3">
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+        <div class="col">
+            <h3>Where you'll be </h3>
+            <div id="map"></div>
+        </div>
+        <div class="col-sm-3 col-xs-auto col-md-3 col-lg-3" style="height: 0.5vh;"></div>
+    </div>
+
+</div>
+
+
+
+
+
+    
+
+
+<script src="/app.js"></script>
+</body>

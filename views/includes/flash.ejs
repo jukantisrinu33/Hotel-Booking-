@@ -1,0 +1,17 @@
+<% if(Listingadded && Listingadded.length){  %>
+    <div class="flash-alert mt-4">
+        <div class="alert alert-success text-center alert-dismissible fade show flash-alert-option" role="alert" >
+            <%= Listingadded %> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </div>
+<% } %>
+
+<% if(undefinedListing && undefinedListing.length){  %>
+    <div class="flash-alert mt-4">
+        <div class="alert alert-danger text-center alert-dismissible fade show flash-alert-option" role="alert" >
+            <%=undefinedListing  %> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </div>
+<% } %>
